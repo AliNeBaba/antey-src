@@ -1,7 +1,6 @@
 {
   "header": "Видеонаблюдение",
   "onTheDate": "22.06.2021",
-  "description": "Предлагаем вам видеонаблюдение от таких фирм как Dahua, HiWatch, Hikvision и другиx. У нас есть опыт установки и настройки самых разных систем. Ниже представлены самые ходовые модели. Вы можете ознакомиться с расценками на работы или подсчитать примерную стоимость монтажа, добавляя в калькулятор нужное вам оборудование.",
   "price": {
     "Монтаж видеокамеры": 750,
     "Пуско-наладочные работы": 1500,
@@ -13,7 +12,7 @@
   },
   "goods": [
     {
-      "category": "Видеокамеры",
+      "category": "Видеокамера",
       "type": "IP камера",
       "brandName": "HiWatch",
       "name": "DS-I200(C) (2.8 мм)",
@@ -31,7 +30,7 @@
       "infoURL": "https://www.dssl.ru/products/ds-i200-s-2-8-mm-ip-kamera/"
     },
     {
-      "category": "Видеокамеры",
+      "category": "Видеокамера",
       "type": "IP камера",
       "brandName": "Hikvision",
       "name": "DS-2CD2043G0-I (2.8 мм)",
@@ -49,7 +48,7 @@
       "infoURL": "https://www.dssl.ru/products/ds-2cd2043g0-i-2-8-mm-ip-kamera/"
     },
     {
-      "category": "Видеокамеры",
+      "category": "Видеокамера",
       "type": "HD-TVI",
       "brandName": "HiWatch",
       "name": "DS-T200 (3.6 мм)",
@@ -67,7 +66,7 @@
       "infoURL": "https://www.dssl.ru/products/ds-t200-b-3-6-mm-analogovaya-kamera/"
     },
     {
-      "category": "Видеокамеры",
+      "category": "Видеокамера",
       "type": "IP",
       "brandName": "Trassir",
       "name": "TR-D2B5 3.6мм",
@@ -85,7 +84,7 @@
       "infoURL": "https://www.dssl.ru/products/tr-d2b5-nopoe-v2-3-6-mm-ip-kamera/"
     },
     {
-      "category": "Видеокамеры",
+      "category": "Видеокамера",
       "type": "HD-TVI",
       "brandName": "HiWatch",
       "name": "DS-T591 (3,6 мм)",
@@ -101,6 +100,68 @@
       "rating": 4.6,
       "imgURL": "../img/ds-t591.jpeg",
       "infoURL": "https://www.dssl.ru/products/ds-t591-3-6-mm-analogovaya-kamera/"
+    },
+    {
+      "category": "Видеорегистратор",
+      "type": "HD-TVI, AHD, CVI, CVBS",
+      "brandName": "HiWatch",
+      "name": "DS-H204QA",
+      "price": 7210,
+      "properties": {
+        "Количество IP каналов - ": 6,
+        "Максимальное разрешение - ": "до 5 Мп",
+        "SATA для HDD - ": "до 6 Тбайт",
+        "Дополнительно: ": "рассчитан на 4 аналоговых, HD-TVI, AHD, HD-CVI камер и IP-камеру (с замещением аналоговых каналов — до 6). Разрешение записи HD-CVI, AHD и HD-TVI — до 4 Мп, IP-камер — до 6 Мп. Дальность передачи HD-TVI в разрешении 2 Мп — 800 м, 1 Мп — 1200 м."
+      },
+      "rating": 4.7,
+      "imgURL": "../img/ds-h204qa.jpeg",
+      "infoURL": "https://www.dssl.ru/products/ds-h204qa-xvr/"
+    },
+    {
+      "category": "Видеорегистратор",
+      "type": "",
+      "brandName": "TRASSIR",
+      "name": "NVR-1104 V2",
+      "price": 10990,
+      "properties": {
+        "Количество IP каналов - ": "4",
+        "Максимальное разрешение - ": "до 6 Мп",
+        "Дополнительно: ": "видеовыходы HDMI и VGA (дублирующие), один SATA для HDD форм-фактора 3.5' объемом до 8 Тбайт, два USB 2.0 (на задней панели), аудиовыход. Устройство поддерживает кодеки H.265 и H.264, удаленное подключение и просмотр архива/живого видео через клиентское приложение TRASSIR, веб-браузер, мобильный клиент Android / iOS, облачный сервис (платные тарифы). Регистратор не поддерживает модуль ActivePOS и работу с меню ActiveSearch, работать с данными ActiveSearch можно удаленно через клиент TRASSIR."
+      },
+      "rating": null,
+      "imgURL": "../img/nvr-1104-1.png",
+      "infoURL": "https://www.dssl.ru/products/nvr-1104-v2-nvr/"
+    },
+    {
+      "category": "Видеорегистратор",
+      "type": "HD-TVI, AHD, CVI, CVBS",
+      "brandName": "HiWatch",
+      "name": "DS-H208QA",
+      "price": 10990,
+      "properties": {
+        "Количество IP каналов - ": "до 12",
+        "Максимальное разрешение - ": "до 6 Мп",
+        "SATA для HDD - ": "до 6 Тбайт",
+        "Дополнительно: ": "рассчитан на восемь аналоговых, HD-TVI, AHD, HD-CVI камер и две IP-камеры (с замещением аналоговых каналов в Enhanced IP mode — до 12). Разрешение записи с камер HD-CVI, AHD и HD-TVI — до 4 Мп, IP-камер — до 6 Мп. Максимальная дальность передачи видеосигнала формата HD-TVI в разрешении 1080p — 800 м, 720p — 1200 м."
+      },
+      "rating": 4.3,
+      "imgURL": "../img/ds-h204qa.jpeg",
+      "infoURL": "https://www.dssl.ru/products/ds-h208qa-xvr/"
+    },
+    {
+      "category": "Видеорегистратор",
+      "type": "",
+      "brandName": "TRASSIR",
+      "name": "MiniNVR AF 16",
+      "price": 36990,
+      "properties": {
+        "Количество IP каналов - ": "до 16",
+        "Максимальное разрешение - ": "до 8 Мп",
+        "Дополнительно: ": "1 х Ethernet 10/100/1000 Мбит/с, Размер архива до 2 HDD/SSD 2.5/3.5' любого объема, 1 х VGA; 1 x HDMI, 2 независимых видеовыхода, Максимальное разрешение вывода D-SUB / HDMI: FullHD, USB интерфейс 2 х USB 2.0; 1 х USB 3.0, Звук 1 x аудиовход (jack 3.5 мм), 1 x аудиовыход (jack 3.5 мм), DC 12 В, Мощность БП 30 Вт (без HDD), +10° до +30°С, 440x293.6x44.5 мм"
+      },
+      "rating": 4.2,
+      "imgURL": "../img/mini-nvr-af-16.jpg",
+      "infoURL": "https://www.dssl.ru/products/trassir-mininvr-af-16-ip-videoregistrator-16-kanalnyj/"
     }
   ]
 }

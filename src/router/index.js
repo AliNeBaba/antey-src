@@ -3,7 +3,8 @@ import Home from '../views/Home.vue'
 
 const routes = [
   {
-    path: '/',
+    path: '/:current*',
+    props: true,
     name: 'Home',
     component: Home
   },
@@ -37,6 +38,15 @@ const routes = [
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else if (to.hash) {
+      return { el: to.hash }
+    } else {
+      return { top: 0 }
+    }
+  },
   routes
 })
 

@@ -30,7 +30,7 @@
 </template>
 <script>
 import PriceToCalc from '@/components/PriceToCalc.vue'
-import StarsRating from '@/components/StarsRating.vue'
+import StarsRating from '@/components/svg/StarsRating.vue'
 export default {
   name: 'CardProduct',
   props: ['good'],

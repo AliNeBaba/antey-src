@@ -1,8 +1,8 @@
 <template>
-    <main class="bg-light">
+    <main>
 
         <!-- Промо информация -->
-        <section class="container-xxl container-fluid py-lg-5 py-sm-3 py-1 mb-5">
+        <section class="container-xxl container-fluid py-lg-5 py-sm-3 py-1">
           <div class="row align-items-center">
             <h1 class="font-weight-bold text-center text-uppercase h2 p-3">Добро пожаловать на сайт ООО "АНТЕЙ"</h1>
 
@@ -56,49 +56,39 @@
         </section>
 
         <!-- Информация об услугах -->
-        <section class="main-services py-lg-5 py-sm-3 py-1 bg-light">
+        <section id="services" class="main-services py-lg-5 py-sm-3 py-1">
             <div class="container-lg">
                 <div class="row justify-content-around mb-3">
                     <div class="col-xxl-8 col-lg-8 row">
-                        <h2 class="text-md-center text-light h4 p-sm-3 p-2">Установка систем видеонаблюдения является важным направлением деятельности нашей компании</h2>
+                      <h2 class="text-md-center h4 p-sm-3 p-2">{{ loadCurrentService.header }}</h2>
 
                         <div class="container-md">
                             <figure>
-                                <img class="img-bottom" src="@/assets/general-service.jpg" alt="Видеонаблюдение - главная услуга" />
+                                <img class="img-bottom" :src="loadCurrentService.imgURL" :alt="loadCurrentService.imgAlt" />
                             </figure>
 
-                            <p class="service-text rounded text-light px-lg-5 px-sm-4 px-2">
-                                Сегодня существует большое количество технических решений для визуального контроля.
-                                Это и автономные IP-камеры с доступом по сети, которые сами сохраняют запись на длительное время,
-                                и большие комплексы с централизованным управлением. Мы с удовольствием поможем вам подобрать наиболее подходящую
-                                конфигурацию для успешного решения любой из следующих задач:
-                            </p>
+                            <p class="service-text bg-secondary text-light rounded px-lg-5 px-sm-4 px-2">{{ loadCurrentService.description }}</p>
                         </div>
 
                         <div class="container-md">
                             <div class="row justify-content-around">
                                 <ul class="service-list col-md-5 container-md px-md-3 px-5 text-light list-group list-group-flush">
-                                    <li class="list-group-item">Защита имущества</li>
-                                    <li class="list-group-item">Фиксация происшествий</li>
-                                    <li class="list-group-item">Наблюдение за посетителями</li>
-                                    <li class="list-group-item">Доступ со смартфона</li>
-                                    <li class="list-group-item">Оповещение о движении перед камерой</li>
-                                    <li class="list-group-item">Контроль работы персонала</li>
+                                  <li class="list-group-item" v-for="item in loadCurrentService.properties" :key="item">{{ item }}</li>
                                 </ul>
 
                                 <div class="col-md-6">
-                                    <p class="text-light p-sm-3">На странице услуги вы можете ознакомиться с техническими характеристиками
+                                    <p class="p-sm-3">На странице услуги вы можете ознакомиться с техническими характеристиками
                                         оборудования, подобрать конфигурацию
                                         и рассчитать приблизительную стоимость наших услуг</p>
-                                    <router-link to="/service/video" class="mb-2"><img src="@/assets/video-watch.svg" /></router-link>
+                                    <router-link :to="loadCurrentTarget" class="mb-2 btn btn-primary">На страницу услуги</router-link>
                                 </div>
                             </div>
                         </div>
                     </div>
 
                     <div class="services col-xxl-3 col-lg-4 mb-5">
-                        <h3 class="text-light text-center p-2 mb-lg-5 mb-3">Другие услуги</h3>
-                        <div id="carouselIndicators" class="carousel bg-light slide rounded" data-bs-ride="carousel">
+                        <h3 class="text-center p-2 mb-lg-5 mb-3">Другие услуги</h3>
+                        <div id="carouselIndicators" class="carousel bg-light slide rounded border border-2" data-bs-ride="carousel">
                           <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <h3 class="text-center p-2">Сигнализация</h3>
@@ -110,7 +100,7 @@
                                         <li class="list-group-item">Решения на базе GSM</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/signaling">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'signaling'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                             <div class="carousel-item">
                                 <h3 class="text-center p-2">Телефония</h3>
@@ -122,7 +112,7 @@
                                         <li class="list-group-item">Станции АТС/МиниАТС</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/phone">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'phone'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                             <div class="carousel-item">
                                 <h3 class="text-center p-2">Системы доступа</h3>
@@ -134,7 +124,7 @@
                                         <li class="list-group-item">Системы контроля и управления доступом</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/barrier">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'barrier'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                             <div class="carousel-item">
                                 <h3 class="text-center p-2">Сплит-системы</h3>
@@ -146,7 +136,7 @@
                                         <li class="list-group-item">Напольно-потолочные</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/split">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'split'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                             <div class="carousel-item">
                                 <h3 class="text-center p-2">Спутниковое ТВ</h3>
@@ -158,7 +148,7 @@
                                         <li class="list-group-item">Монтаж и настройка</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/tv">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'tv'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                             <div class="carousel-item">
                                 <h3 class="text-center p-2">Умный Дом</h3>
@@ -170,7 +160,19 @@
                                         <li class="list-group-item">Комплексные решения</li>
                                     </ul>
                                 </div>
-                                <router-link class="btn btn-primary" to="/service/home">Узнать подробнее &gt;&gt;&gt;</router-link>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'home'">Узнать подробнее &gt;&gt;&gt;</a>
+                            </div>
+                            <div class="carousel-item">
+                                <h3 class="text-center p-2">Видеонаблюдение</h3>
+                                <div class="description-wrapper px-5">
+                                    <img class="px-2" src="@/assets/camera.svg">
+                                    <ul class="list-group list-group-flush">
+                                        <li class="list-group-item">Защита имущества</li>
+                                        <li class="list-group-item">Контроль работы персонала</li>
+                                        <li class="list-group-item">Доступ со смартфона</li>
+                                    </ul>
+                                </div>
+                                <a href="#services" class="btn btn-primary" @click="currentService = 'video'">Узнать подробнее &gt;&gt;&gt;</a>
                             </div>
                           <button class="carousel-control-prev" type="button" data-bs-target="#carouselIndicators"  data-bs-slide="prev">
                             <span class="text-primary h1">&laquo;</span>
@@ -184,7 +186,7 @@
                 </div>
             </div>
 
-            <div class="slider">
+            <div class="slider bg-dark">
                 <div class="slide-track">
                     <div class="slide"><a target="_blank" href="http://anmotorsshop.ru/"><img src="@/assets/anmotors.jpg" height="60" width="160" alt=""/></a></div>
                     <div class="slide"><a target="_blank" href="https://www.bft-automation.com/ru_RU/"><img src="@/assets/bft.jpg" height="60" width="160" alt=""/></a></div>
@@ -291,6 +293,119 @@
 export default {
   name: 'Home',
   components: {
+  },
+  props: ['current'],
+  data () {
+    return {
+      barrier: {
+        header: 'Современные системы доступа обеспечивают надежный контроль, комфорт и безопасность',
+        description: 'Трудно представить себе предприятие без СКУД (Система контроля и управления доступом). Домофоны для подъездов и частных домов тоже широко используются. Шлагбаумы, турникеты, распашные и откатные ворота - важная составляющая таких систем. Наши специалисты имеют опыт установки и настройки СКУД любого масштаба и конфигурации. Мы поможем Вам сделать так, чтобы Вам было удобно контролировать:',
+        imgURL: '../img/barrier-service.jpg',
+        imgAlt: 'Доступ по ключу',
+        properties: [
+          'Приход/уход сотрудников',
+          'Учет рабочего времени',
+          'Доступ посторонних лиц',
+          'Интеграция с видеонаблюдением и сигнализацией',
+          'Передвижение транспорта',
+          'И многое другое...'
+        ]
+      },
+      home: {
+        header: 'Умный Дом - удивительно удобное цифровое решение для дистанционного контроля систем',
+        description: 'Неизбежная цифровизация всего и вся рано или поздно приведет тому, что даже утюг будет подключен к интернету. Роботы-пылесосы, умные чайники и лампы тому пример. Управлять такой электроникой можно уже сейчас со своего смартфона или голосом с помощью какой-нибудь Умной колонки. Это реальность, и это очень удобно. Вот некоторые возможности:',
+        imgURL: '../img/home-service.jpg',
+        imgAlt: 'Управление домом',
+        properties: [
+          'Включение и отключение устройств',
+          'Управление аудиоаппаратурой',
+          'Управление ТВ',
+          'Контроль здоровья систем',
+          'Управление системами безопасносности',
+          'Автоматизация процессов'
+        ]
+      },
+      phone: {
+        header: 'Быстрая, надежная и стабильная связь для частных лиц и бизнеса любого масштаба',
+        description: 'Есть немало технических, электронных и цифровых решений, которые смогут обеспечить качественную и бесперебойную связь в любых условиях. Физические/цифровые АТС, IP и SIP телефоны и телефония позволят вашему бизнесу максимально качественно работать с клиентами и сотрудниками. Мы проконсультируем Вас и поможем выбрать оптимальную конфигурацию. Возможности:',
+        imgURL: '../img/phone-service.jpg',
+        imgAlt: 'Телефон',
+        properties: [
+          'Недорогая связь',
+          'Масштабируемые Call-центры',
+          'Организация удаленной работы сотрудников',
+          'Большой выбор провайдеров и тарифов',
+          'Почта и конференц-связь'
+        ]
+      },
+      signaling: {
+        header: 'В наше неспокойное время сигнализация - не роскошь, а крайняя необходимость.',
+        description: 'Люди пользуются сигнализацией с тех пор, как научились привязывать собаку во дворе. Сейчас же пожарная и охранная сигнализации - это прежде всего электроника, способная работать автономно, и нередко являющаяся частью целой системы безопасности. Другими составными частями которой могут быть СКУД и видеонаблюдение. У нас есть опыт и все необходимые разрешительные документы и лицензии. Обратившись к нам Вы получите:',
+        imgURL: '../img/signaling-service.jpg',
+        imgAlt: 'Пожарная сигнализация - колокол',
+        properties: [
+          'Проект системы пожарной сигнализации',
+          'Расчет конфигурации любой сложности',
+          'Качественный и быстрый монтаж',
+          'Соблюдение всех норм и требований'
+        ]
+      },
+      split: {
+        header: 'Сплит-системы для дома и офиса по доступным ценам от надежных производителей',
+        description: 'Скорее всего Вы хорошо знаете, что при выборе сплит-системы необходимо учитывать площадь помещений, характеристики и надежность оборудования, легкость эксплуатации, сложность проведения профилактических работ, например чистки фильтров и конденсатора. Мы готовы помочь Вам. И не только с выбором оборудования. Предлагаем полный спектр услуг:',
+        imgURL: '../img/split-service.jpg',
+        imgAlt: 'Сплит-системы',
+        properties: [
+          'Грамотный расчет',
+          'Быстрый и качественный монтаж',
+          'Выезд мастера для диагностики',
+          'Устранение течи и дозаправка',
+          'Гарантия на оборудование и работу'
+        ]
+      },
+      tv: {
+        header: 'Монтаж и настройка систем спутникового, кабельного и цифрового телевидения',
+        description: 'Согласитесь, когда выбор слишком большой, легко запутаться. Так сейчас обстоит дело как с провайдерами кабельного и спутникового ТВ, так и с их тарифами. Слишком много. Ориентируясь на Ваши вкусы и предпочтения специалисты ООО АНТЕЙ подскажут, какие провайдеры и тарифы будут для Вас оптимальными. Кроме того, мы также оказываем ряд услуг в этом направлении:',
+        imgURL: '../img/tv-service.jpg',
+        imgAlt: 'Пульт дистанционного управления телевизором',
+        properties: [
+          '7 основных операторов',
+          'Более 350 каналов',
+          'Монтаж спутниковых антенн',
+          'Прокладка ТВ-кабеля',
+          'Настройка по силе сигнала',
+          'Ну и наконец еще услуга'
+        ]
+      },
+      video: {
+        header: 'Установка систем видеонаблюдения является важным направлением деятельности нашей компании',
+        description: 'Сегодня существует большое количество технических решений для визуального контроля. Это и автономные IP-камеры с доступом по сети, которые сами сохраняют запись на длительное время, и большие комплексы с централизованным управлением. Мы с удовольствием поможем вам подобрать наиболее подходящую конфигурацию для успешного решения любой из следующих задач:',
+        imgURL: '../img/video-service.jpg',
+        imgAlt: 'Видеокамеры',
+        properties: [
+          'Защита имущества',
+          'Фиксация происшествий',
+          'Наблюдение за посетителями',
+          'Доступ со смартфона',
+          'Оповещение о движении перед камерой',
+          'Контроль работы персонала'
+        ]
+      },
+      currentService: 'video'
+    }
+  },
+  computed: {
+    loadCurrentService () {
+      return this.[this.currentService]
+    },
+    loadCurrentTarget () {
+      return `/service/${this.currentService}`
+    }
+  },
+  watch: {
+    current (newCurrent, oldCurrent) {
+      this.currentService = newCurrent === '' ? 'video' : newCurrent
+    }
   }
 }
 </script>
