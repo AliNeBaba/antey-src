@@ -1,4 +1,4 @@
-# vue-site
+# finish
 
 ## Project setup
 ```
