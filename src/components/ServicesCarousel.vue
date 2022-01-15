@@ -20,6 +20,10 @@ export default {
     Controls
   },
   props: {
+    numberOfSlides: {
+      type: [Number, String],
+      default: 0
+    },
     count: {
       type: [Number, String],
       default: 0
@@ -82,7 +86,7 @@ export default {
     },
     controlsVisible: {
       type: Boolean,
-      default: false
+      default: true
     },
     controlsPrevHtml: {
       type: String,
@@ -132,11 +136,6 @@ export default {
       dragStartY: 0,
       mousedown: false,
       zIndex: 998
-    }
-  },
-  watch: {
-    count () {
-      this.computeData()
     }
   },
   computed: {
@@ -375,8 +374,8 @@ export default {
           })
         })
 
-        if (this.$el) {
-          this.mutationObserver.observe(this.$el, config)
+        if (document.getElementById('service')) {
+          this.mutationObserver.observe(document.getElementById('service'), config)
         }
       }
     },
@@ -385,19 +384,6 @@ export default {
       if (this.mutationObserver) {
         this.mutationObserver.disconnect()
       }
-    },
-    /**
-     * Get the number of slides
-     * @return {Number} Number of slides
-     */
-    getSlideCount () {
-      if (this.$slots.default !== undefined) {
-        return this.$slots.default.filter((value) => {
-          return value.tag !== void 0
-        }).length
-      }
-
-      return 0
     },
     /**
      * Calculate slide with and keep defined aspect ratio
@@ -410,16 +396,16 @@ export default {
      * Re-compute the number of slides and current slide
      */
     computeData (firstRun) {
-      this.total = this.getSlideCount()
+      this.total = this.numberOfSlides;
       if (firstRun || this.currentIndex >= this.total) {
         this.currentIndex = parseInt(this.startIndex) > this.total - 1 ? this.total - 1 : parseInt(this.startIndex)
       }
 
-      this.viewport = this.$el.clientWidth
+      this.viewport = document.getElementById('service').clientWidth
     },
     setSize () {
-      this.$el.style.cssText += 'height:' + this.slideHeight + 'px;'
-      this.$el.childNodes[0].style.cssText += 'width:' + this.slideWidth + 'px;' + ' height:' + this.slideHeight + 'px;'
+      document.getElementById('service').style.cssText += 'height:' + this.slideHeight + 'px;'
+      document.getElementById('service').childNodes[0].style.cssText += 'width:' + this.slideWidth + 'px;' + ' height:' + this.slideHeight + 'px;'
     }
   },
 
@@ -430,14 +416,15 @@ export default {
       window.addEventListener('resize', this.setSize)
 
       if ('ontouchstart' in window) {
-        this.$el.addEventListener('touchstart', this.handleMousedown)
-        this.$el.addEventListener('touchend', this.handleMouseup)
-        this.$el.addEventListener('touchmove', this.handleMousemove)
+        document.getElementById('service').addEventListener('touchstart', this.handleMousedown)
+        document.getElementById('service').addEventListener('touchend', this.handleMouseup)
+        document.getElementById('service').addEventListener('touchmove', this.handleMousemove)
       } else {
-        this.$el.addEventListener('mousedown', this.handleMousedown)
-        this.$el.addEventListener('mouseup', this.handleMouseup)
-        this.$el.addEventListener('mousemove', this.handleMousemove)
+        document.getElementById('service').addEventListener('mousedown', this.handleMousedown)
+        document.getElementById('service').addEventListener('mouseup', this.handleMouseup)
+        document.getElementById('service').addEventListener('mousemove', this.handleMousemove)
       }
+      console.log(this.numberOfSlides);
     }
   },
 
@@ -446,9 +433,9 @@ export default {
       this.detachMutationObserver()
 
       if ('ontouchstart' in window) {
-        this.$el.removeEventListener('touchmove', this.handleMousemove)
+        document.getElementById('service').removeEventListener('touchmove', this.handleMousemove)
       } else {
-        this.$el.removeEventListener('mousemove', this.handleMousemove)
+        document.getElementById('service').removeEventListener('mousemove', this.handleMousemove)
       }
 
       window.removeEventListener('resize', this.setSize)

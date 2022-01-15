@@ -1,7 +1,7 @@
 <template>
   <section id="service" class="service">
     <h2>{{ currentService.header }}</h2>
-      <services-carousel>
+      <services-carousel :number-of-slides="content.length">
         <imgs-slide v-for="(item, i) in content" :index="i" :key="i">
           <img :src="item.imgURL">
         </imgs-slide>
