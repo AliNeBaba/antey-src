@@ -4,7 +4,7 @@
   <main-loader v-if="showLoader" />
   <main v-else>
     <section-promo :content="content.promo" />
-    <section id="service" class="service"></section>
+    <section-services :content="content.services" />
     <section id="video__monitoring__online" class="video__monitoring"></section>
     <section id="about" class="about"></section>
   </main>
@@ -16,13 +16,15 @@
 import Header from "./components/Header.vue";
 import Promo from "./components/Promo.vue";
 import Loader from "./components/Loader.vue";
+import Services from "./components/Services.vue";
 
 export default {
   name: "App",
   components: {
     "site-header": Header,
-    "section-promo": Promo,
     "main-loader": Loader,
+    "section-promo": Promo,
+    "section-services": Services,
   },
   data() {
     return {
@@ -35,6 +37,7 @@ export default {
       this.content = await fetch("data/content.json").then((response) =>
         response.json()
       );
+      console.log(this.content);
     })();
   },
   watch: {
@@ -90,9 +93,5 @@ body {
 }
 main {
   min-height: 100vh;
-}
-.service {
-  height: 100vh;
-  background-color: red;
 }
 </style>

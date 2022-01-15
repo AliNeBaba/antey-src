@@ -3,16 +3,21 @@
     <div class="promo__container">
       <p v-html="currentPage.general_info" class="promo__general__info"></p>
       <img :src="currentPage.img" :alt="currentPage.alt" class="promo__img" />
-      <p v-html="currentContent(1)" class="promo__service__1"></p>
-      <p v-html="currentContent(2)" class="promo__service__2"></p>
-      <p v-html="currentContent(3)" class="promo__service__3"></p>
+      <transition-group appear @enter="enter" :css="false">
+        <p
+          v-for="service in currentPage.service"
+          v-html="replaceContent(service)"
+          :key="service"
+          class="promo__service"
+        ></p>
+      </transition-group>
     </div>
     <a href="#service"></a>
   </section>
 </template>
 
 <script>
-import gsap from "gsap";
+import { gsap } from "gsap";
 
 export default {
   name: "Promo",
@@ -23,23 +28,7 @@ export default {
     };
   },
   mounted: function () {
-    setInterval(this.nextPage, 8000);
-    gsap.from(".promo__general__info", {
-      transform: "scale(0)",
-      duration: 0.3,
-      ease: "back.out(1.2)",
-    });
-    gsap.from(".promo__img", {
-      duration: 0.3,
-      opacity: 0,
-    });
-    gsap.from(".promo span", {
-      opacity: 0,
-      top: "1rem",
-      right: "0.2rem",
-      ease: "back.out(5)",
-      stagger: 0.06,
-    });
+    this.animationStep();
   },
   computed: {
     currentPage() {
@@ -48,52 +37,106 @@ export default {
   },
   methods: {
     nextPage() {
-      gsap.to(".promo__general__info", {
-        transform: "scale(0)",
-        duration: 0.3,
-        ease: "back.in(1.2)",
-      });
-      gsap.to(".promo__img", {
-        duration: 0.3,
-        opacity: 0,
-      });
-      gsap.to(".promo span", {
-        duration: 0.3,
-        opacity: 0,
-        onComplete: () => {
-          this.page === this.content.length - 1 ? (this.page = 0) : ++this.page;
-        },
-      });
-      gsap.set(".promo span", {
-        top: "1rem",
-        right: "0.2rem",
-      });
+      this.page === this.content.length - 1 ? (this.page = 0) : ++this.page;
     },
-    currentContent(target) {
-      return this.currentPage[`service_${target}`]
+    replaceContent(target) {
+      return target
         .split("")
         .map((s) => `<span>${s}</span>`)
         .join("");
     },
-  },
-  watch: {
-    page() {
-      gsap.to(".promo__general__info", {
-        transform: "scale(1)",
-        duration: 0.3,
-        ease: "back.out(1.2)",
-      });
-      gsap.to(".promo__img", {
-        duration: 0.3,
-        opacity: 1,
-      });
-      gsap.to(".promo span", {
-        opacity: 0,
-        top: "1rem",
-        right: "0.2rem",
-        ease: "back.out(1.2)",
-        stagger: 0.05,
-      });
+    nextStep() {
+      window.removeEventListener("scroll", this.nextStep);
+      if (window.pageYOffset) {
+        window.addEventListener("scroll", this.nextStep);
+      } else {
+        setTimeout(() => {
+          this.nextPage();
+          this.animationStep();
+        }, 300);
+      }
+    },
+    animationStep() {
+      gsap
+        .timeline()
+        .fromTo(
+          ".promo__general__info",
+          {
+            transform: "scale(0)",
+          },
+          {
+            transform: "scale(1)",
+            ease: "back.out(1.2)",
+            duration: 0.3,
+          }
+        )
+        .fromTo(
+          ".promo__img",
+          {
+            opacity: 0,
+          },
+          {
+            opacity: 1,
+            duration: 0.4,
+          },
+          "<"
+        )
+        .fromTo(
+          ".promo__general__info",
+          {
+            transform: "scale(1)",
+          },
+          {
+            duration: 0.2,
+            transform: "scale(0)",
+            ease: "back.in(1.2)",
+          },
+          "+=8"
+        )
+        .fromTo(
+          ".promo__img",
+          {
+            opacity: 1,
+            transform: "scale(1)",
+          },
+          {
+            duration: 0.2,
+            opacity: 0,
+            transform: "scale(0.9)",
+            onComplete: () => {
+              this.nextStep();
+            },
+          }
+        );
+    },
+    enter() {
+      gsap
+        .timeline()
+        .fromTo(
+          ".promo__service span",
+          {
+            opacity: 0,
+            top: "1.3rem",
+            right: "-0.6rem",
+          },
+          {
+            duration: 0.5,
+            opacity: 1,
+            top: 0,
+            right: 0,
+            ease: "back.out(5)",
+            stagger: 0.01,
+          }
+        )
+        .to(
+          ".promo__service span",
+          {
+            duration: 0.2,
+            opacity: 0,
+            transform: "scale(0.9)",
+          },
+          "+=7.4"
+        );
     },
   },
 };
@@ -113,7 +156,7 @@ export default {
   justify-content: space-around;
   align-items: center;
   height: 85vh;
-  padding-top: 1rem;
+  padding-top: 2rem;
 }
 .promo p {
   padding: 1rem;
@@ -121,32 +164,29 @@ export default {
   color: var(--white);
   line-height: 1.6;
   text-transform: uppercase;
+  font-weight: bold;
+  width: 80%;
+}
+.promo__general__info {
+  filter: drop-shadow(0 0 0.7rem var(--white));
 }
 .promo__img {
   width: 90%;
   box-shadow: 0 0 0.5rem var(--red);
   max-width: 30rem;
-  transition: all 0.3s linear;
 }
-.promo__service__1,
-.promo__service__2,
-.promo__service__3 {
-  font-size: 1.4rem;
-  font-weight: bold;
+.promo__service {
   transform: rotate(-5deg) skew(-15deg);
-  text-shadow: var(--red) 1px 1px, var(--red) 2px 2px, var(--red) 3px 3px,
-    var(--red) 4px 4px;
+  filter: drop-shadow(0 0 0.4rem var(--red));
 }
-.promo__service__1 span,
-.promo__service__2 span,
-.promo__service__3 span {
+.promo__service span {
   position: relative;
 }
 .promo a {
   background: transparent;
   border: none;
   margin-bottom: 1rem;
-  animation: 2s ease-in-out 3s infinite button-pulse;
+  animation: 5s ease-in-out 3s infinite button-pulse;
 }
 .promo a:hover {
   filter: drop-shadow(0 0 0.4rem var(--red));
@@ -166,10 +206,10 @@ export default {
   5% {
     transform: translateY(-0.5rem) scale(1.1);
   }
-  45% {
+  25% {
     transform: translateY(0.5rem) scale(0.9);
   }
-  50% {
+  30% {
     transform: translateY(0) scale(1);
   }
 }

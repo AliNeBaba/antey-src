@@ -93,11 +93,11 @@ export default {
 }
 .letters-enter-from {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(0.5rem);
 }
 .letters-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-0.5rem);
 }
 .letters-enter-active {
   transition: all 0.2s ease-out;
