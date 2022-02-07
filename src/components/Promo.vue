@@ -1,7 +1,7 @@
 <template>
   <section id="top-page" class="promo">
     <div class="promo__container">
-      <p v-html="currentPage.general_info" class="promo__general__info"></p>
+      <p v-html="currentPage.generalInfo" class="promo__general__info"></p>
       <img :src="currentPage.img" :alt="currentPage.alt" class="promo__img" />
       <transition-group appear @enter="enter" :css="false">
         <p
@@ -171,9 +171,8 @@ export default {
   filter: drop-shadow(0 0 0.7rem var(--white));
 }
 .promo__img {
-  width: 90%;
+  max-width: 90%;
   box-shadow: 0 0 0.5rem var(--red);
-  max-width: 30rem;
 }
 .promo__service {
   transform: rotate(-5deg) skew(-15deg);
@@ -219,6 +218,9 @@ export default {
   }
   .promo p:not(:first-child) {
     font-size: 1.5rem;
+  }
+  .promo__img {
+    max-width: 30rem;
   }
 }
 </style>

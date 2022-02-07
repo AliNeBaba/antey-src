@@ -37,7 +37,7 @@ export default {
       this.content = await fetch("data/content.json").then((response) =>
         response.json()
       );
-      console.log(this.content);
+      console.log(this.content.services);
     })();
   },
   watch: {
@@ -70,7 +70,8 @@ html {
   }
 }
 a > *,
-button > * {
+button > *,
+p > * {
   pointer-events: none;
 }
 body {
