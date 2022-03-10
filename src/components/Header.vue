@@ -1,5 +1,5 @@
 <template>
-  <header id="header">
+  <header class="header">
     <div class="wrapper">
       <a class="header__logo" href="#top__page">
         <antey-logo />
@@ -13,7 +13,7 @@
       </a>
       <nav class="header__nav">
         <a href="#service">Услуги</a>
-        <a href="#video__monitoring__online">Камеры</a>
+        <a href="#video-monitoring">Камеры</a>
         <a href="#about">О нас</a>
       </nav>
     </div>
@@ -106,7 +106,7 @@ export default {
   position: absolute;
   transition: all 0.2s ease-in;
 }
-#header {
+.header {
   position: fixed;
   top: 0;
   width: 100%;
@@ -120,10 +120,6 @@ export default {
   margin: 0 auto;
   padding: 0.5rem;
 }
-a {
-  text-decoration: none;
-  font-size: 0.8rem;
-}
 .header__logo {
   width: calc(100% / 12 * 2);
   align-self: flex-start;
@@ -134,12 +130,8 @@ a {
   padding: 0.2rem;
 }
 .header__nav a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-transform: uppercase;
   color: var(--lightgrey);
-  padding: 0.2rem;
+  font-size: 0.8rem;
 }
 
 a,
@@ -152,17 +144,16 @@ a.header__logo:hover .shield__path {
 a.header__logo:hover .text__path {
   filter: drop-shadow(0 0 0.5rem var(--white));
 }
-a.header__logo:hover {
-  transform: scale(1.1);
-}
 .header__nav a:hover {
   color: var(--white);
   filter: drop-shadow(0 0 0.4rem var(--white));
-  transform: scale(1.1);
+}
+a.header__phone {
+  display: block;
+  text-transform: none;
 }
 a.header__phone:hover {
   filter: drop-shadow(0 0 0.4rem var(--red));
-  transform: scale(1.1);
 }
 
 @media (min-width: 568px) {

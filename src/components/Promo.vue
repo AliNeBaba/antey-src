@@ -1,5 +1,5 @@
 <template>
-  <section id="top-page" class="promo">
+  <section class="promo">
     <div class="promo__container">
       <p v-html="currentPage.generalInfo" class="promo__general__info"></p>
       <img :src="currentPage.img" :alt="currentPage.alt" class="promo__img" />
@@ -145,10 +145,7 @@ export default {
 <style>
 .promo {
   height: 100vh;
-  display: flex;
-  flex-direction: column;
   justify-content: flex-end;
-  align-items: center;
 }
 .promo__container {
   display: flex;
@@ -159,7 +156,6 @@ export default {
   padding-top: 2rem;
 }
 .promo p {
-  padding: 1rem;
   text-align: center;
   color: var(--white);
   line-height: 1.6;

@@ -1,15 +1,19 @@
 <template>
-  <site-header />
+  <site-header id="header" />
 
   <main-loader v-if="showLoader" />
+
   <main v-else>
-    <section-promo :content="content.promo" />
+    <section-promo id="top-page" :content="content.promo" />
     <section-services :content="content.services" />
-    <section id="video__monitoring__online" class="video__monitoring"></section>
-    <section id="about" class="about"></section>
+    <section-video-monitoring
+      id="video-monitoring"
+      :content="content.videoMonitoring"
+    />
+    <section-about id="about" :content="content.about" />
   </main>
 
-  <footer></footer>
+  <site-footer />
 </template>
 
 <script>
@@ -17,6 +21,9 @@ import Header from "./components/Header.vue";
 import Promo from "./components/Promo.vue";
 import Loader from "./components/Loader.vue";
 import Services from "./components/Services.vue";
+import Monitoring from "./components/VideoMonitoring.vue";
+import About from "./components/About.vue";
+import Footer from "./components/Footer.vue";
 
 export default {
   name: "App",
@@ -25,6 +32,9 @@ export default {
     "main-loader": Loader,
     "section-promo": Promo,
     "section-services": Services,
+    "section-video-monitoring": Monitoring,
+    "section-about": About,
+    "site-footer": Footer,
   },
   data() {
     return {
@@ -37,7 +47,6 @@ export default {
       this.content = await fetch("data/content.json").then((response) =>
         response.json()
       );
-      console.log(this.content.services);
     })();
   },
   watch: {
@@ -92,7 +101,36 @@ body {
   background-position: center top;
   background-size: auto 100%;
 }
-main {
-  min-height: 100vh;
+a {
+  text-decoration: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-transform: uppercase;
+  padding: 0.2rem;
+}
+a:hover {
+  transform: scale(1.1);
+}
+section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0.75rem;
+}
+h4,
+h5 {
+  text-align: center;
+  text-transform: uppercase;
+  max-width: 30rem;
+  margin: 0 auto 0.75rem;
+  color: var(--white);
+  filter: drop-shadow(0 0 0.5rem var(--white));
+}
+p {
+  padding: 0.75rem;
+  text-align: center;
+  color: var(--white);
+  filter: drop-shadow(0 0 0.5rem var(--white));
 }
 </style>
