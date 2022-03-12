@@ -3,14 +3,12 @@
     <div class="promo__container">
       <p v-html="currentPage.generalInfo" class="promo__general__info"></p>
       <img :src="currentPage.img" :alt="currentPage.alt" class="promo__img" />
-      <transition-group appear @enter="enter" :css="false">
-        <p
-          v-for="service in currentPage.service"
-          v-html="replaceContent(service)"
-          :key="service"
-          class="promo__service"
-        ></p>
-      </transition-group>
+      <p
+        v-for="service in currentPage.service"
+        v-html="service"
+        :key="service"
+        class="promo__service"
+      ></p>
     </div>
     <a href="#service"></a>
   </section>
@@ -21,7 +19,7 @@ import { gsap } from "gsap";
 
 export default {
   name: "Promo",
-  props: ["content"],
+  props: ["content", "ready"],
   data() {
     return {
       page: 0,
@@ -39,21 +37,15 @@ export default {
     nextPage() {
       this.page === this.content.length - 1 ? (this.page = 0) : ++this.page;
     },
-    replaceContent(target) {
-      return target
-        .split("")
-        .map((s) => `<span>${s}</span>`)
-        .join("");
-    },
     nextStep() {
       window.removeEventListener("scroll", this.nextStep);
       if (window.pageYOffset) {
         window.addEventListener("scroll", this.nextStep);
       } else {
+        this.nextPage();
         setTimeout(() => {
-          this.nextPage();
           this.animationStep();
-        }, 300);
+        }, 600);
       }
     },
     animationStep() {
@@ -67,7 +59,7 @@ export default {
           {
             transform: "scale(1)",
             ease: "back.out(1.2)",
-            duration: 0.3,
+            duration: 0.2,
           }
         )
         .fromTo(
@@ -77,41 +69,10 @@ export default {
           },
           {
             opacity: 1,
-            duration: 0.4,
+            duration: 0.3,
           },
           "<"
         )
-        .fromTo(
-          ".promo__general__info",
-          {
-            transform: "scale(1)",
-          },
-          {
-            duration: 0.2,
-            transform: "scale(0)",
-            ease: "back.in(1.2)",
-          },
-          "+=8"
-        )
-        .fromTo(
-          ".promo__img",
-          {
-            opacity: 1,
-            transform: "scale(1)",
-          },
-          {
-            duration: 0.2,
-            opacity: 0,
-            transform: "scale(0.9)",
-            onComplete: () => {
-              this.nextStep();
-            },
-          }
-        );
-    },
-    enter() {
-      gsap
-        .timeline()
         .fromTo(
           ".promo__service span",
           {
@@ -120,7 +81,7 @@ export default {
             right: "-0.6rem",
           },
           {
-            duration: 0.5,
+            duration: 0.3,
             opacity: 1,
             top: 0,
             right: 0,
@@ -129,14 +90,22 @@ export default {
           }
         )
         .to(
-          ".promo__service span",
+          ".promo__general__info",
           {
-            duration: 0.2,
-            opacity: 0,
-            transform: "scale(0.9)",
+            duration: 0.1,
+            transform: "scale(0)",
+            ease: "back.in(1.2)",
           },
-          "+=7.4"
-        );
+          "+=8"
+        )
+        .to([".promo__service span", ".promo__img"], {
+          duration: 0.1,
+          opacity: 0,
+          transform: "scale(0.9)",
+          onComplete: () => {
+            this.nextStep();
+          },
+        });
     },
   },
 };

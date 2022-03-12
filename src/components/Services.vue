@@ -107,8 +107,8 @@ export default {
     },
     openCalc() {
       this.showCalculator = !this.showCalculator;
-      document.body.style.overflow =
-        document.body.style.overflow === "hidden" ? "auto" : "hidden";
+      /*      document.body.style.overflow =
+        document.body.style.overflow === "hidden" ? "auto" : "hidden"; */
     },
   },
 };

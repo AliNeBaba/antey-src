@@ -4,7 +4,7 @@
   <main-loader v-if="showLoader" />
 
   <main v-else>
-    <section-promo id="top-page" :content="content.promo" />
+    <section-promo id="top-page" :content="content.promo" :ready="showLoader" />
     <section-services :content="content.services" />
     <section-video-monitoring
       id="video-monitoring"
@@ -42,18 +42,27 @@ export default {
       showLoader: true,
     };
   },
-  mounted: function () {
+  created: function () {
     (async () => {
-      this.content = await fetch("data/content.json").then((response) =>
-        response.json()
-      );
+      this.content = await fetch("data/content.json")
+        .then((response) => response.json())
+        .then((data) => {
+          data.promo.forEach((obj) => {
+            obj.service.forEach((str, i, arr) => {
+              arr[i] = str
+                .split("")
+                .map((s) => `<span>${s}</span>`)
+                .join("");
+            });
+          });
+          return data;
+        });
+      console.log(this.content);
     })();
   },
   watch: {
     content() {
-      setTimeout(() => {
-        this.showLoader = false;
-      }, 1000);
+      this.showLoader = false;
     },
   },
 };
